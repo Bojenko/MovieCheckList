@@ -8,6 +8,30 @@ import {Provider} from "react-redux";
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const getMovieArrayFromStorage = () => {
+    const movies: Array<Movie> = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let path:string = isItNull(localStorage.key(i))
+        movies[i] = {
+            name: localStorage.key(i),
+            picture: localStorage.getItem(path)
+        };
+    }
+    return movies;
+}
+const isItNull = (arg:string|null)=>{
+    let str:string = arg?.toString()===undefined ? "undefined" : arg?.toString();
+    return str;
+}
+type Movie = {
+    name: string | null,
+    picture: string | null
+}
+const defaultState = {
+    movies:getMovieArrayFromStorage()
+}
 type action = {
     type:string,
     payload:string

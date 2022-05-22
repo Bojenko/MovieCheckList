@@ -1,14 +1,21 @@
 import React, {FC} from 'react';
+import MovieItem from "./MovieItem";
 interface MovieListProps{
-    ml:string[], //movie list
-    mp:string[] //movie pictures
+    list:Array<Movie>
 }
-const MovieList:FC<MovieListProps> = (ml,mp) => {
+type Movie = {
+    name: string | null,
+    picture: string | null
+}
+const MovieList:FC<MovieListProps> = (props) => {
     return (
         <div>
-
+            {props.list.map((movie)=><MovieItem name={isItNull(movie.name)} picture={isItNull(movie.picture)}/>)}
         </div>
     );
 };
-
+const isItNull = (arg:string|null)=>{
+    let str:string = arg?.toString()===undefined ? "undefined" : arg?.toString();
+    return str;
+}
 export default MovieList;
